@@ -2,14 +2,30 @@ import flatpickr from "flatpickr"
 import "flatpickr/dist/flatpickr.min.css"
 import iziToast from "izitoast"
 import "izitoast/dist/css/iziToast.min.css"
-
-const startBtn = document.querySelector('button[data-start]');
-const daysEl = document.querySelector('span[data-days]');
-const hoursEl = document.querySelector('span[data-hours]');
-const minutesEl = document.querySelector('span[data-minutes]');
-const secondsEl = document.querySelector('span[data-seconds]');
 let userSelectedDate = null;
 let  intervalId;
+
+const options = {
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onClose(selectedDates) {
+    userSelectedDate = selectedDates[0];
+    if (selectedDates[0] < new Date()) {
+      alert("Please choose a date in the future");
+      startBtn.disabled = true;
+    } else {
+      startBtn.disabled = false;
+    }
+    console.log(selectedDates[0])
+  },
+  };
+const startBtn = document.querySelector('button[data-start]'),
+const days = document.querySelector('span[data-days]'),
+const hours = document.querySelector('span[data-hours]'),
+const minutes = document.querySelector('span[data-minutes]'),
+const seconds = document.querySelector('span[data-seconds]'),
 startBtn.disabled = true;
 startBtn.addEventListener('click', () => {
     intervalId = setInterval (() => {
@@ -19,6 +35,11 @@ startBtn.addEventListener('click', () => {
             clearInterval(intervalId);
             return;
         }
+        const time = convertMs(diff);
+        days.textContent = time.days;
+        hours.textContent = time.hours;
+        minutes.textContent = time.minutes;
+        seconds.textContent = time.seconds;
    function convertMs(ms) {
   const second = 1000;
   const minute = second * 60;
