@@ -18,14 +18,14 @@ const options = {
     } else {
       startBtn.disabled = false;
     }
-    console.log(selectedDates[0])
+    console.log(selectedDates[0]);
   },
   };
-const startBtn = document.querySelector('button[data-start]'),
-const days = document.querySelector('span[data-days]'),
-const hours = document.querySelector('span[data-hours]'),
-const minutes = document.querySelector('span[data-minutes]'),
-const seconds = document.querySelector('span[data-seconds]'),
+const startBtn = document.querySelector('button[data-start]');
+const days = document.querySelector('span[data-days]');
+const hours = document.querySelector('span[data-hours]');
+const minutes = document.querySelector('span[data-minutes]');
+const seconds = document.querySelector('span[data-seconds]');
 startBtn.disabled = true;
 startBtn.addEventListener('click', () => {
     intervalId = setInterval (() => {
