@@ -15,5 +15,15 @@ const promise = new Promise((res, rej) => {
 });
 return promise;
 }
-const promise1 = createSnackbar(`✅ Fulfilled promise in ${1000}ms`, 1000, true);
-const promise2 = createSnackbar(`❌ Rejected promise in ${1000}ms`, 1000, false);
+const delay = 2000;
+const promise1 = createSnackbar(`✅ Fulfilled promise in ${delay}ms`, delay, true);
+promise1.then(value => {
+})
+.catch(error => {
+});
+
+const promise2 = createSnackbar(`❌ Rejected promise in ${delay}ms`, delay, false);
+promise1.then(value => {
+})
+.catch(error => {
+});
