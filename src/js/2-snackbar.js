@@ -8,7 +8,7 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     const delay = Number(form.elements.delay.value);
     const state = form.elements.state.value;
-    createPromise(delay, state === 'fulfilled')
+    createSnackbar(delay, state === 'fulfilled')
         .then(message => {
             iziToast.success({
                 message: `✅ Fulfilled promise in ${delay}ms`
@@ -20,12 +20,14 @@ form.addEventListener('submit', (e) => {
             });
         });
     });
-function createSnackbar(delay, shouldResolve) {
-const promise = new Promise((res, rej) => {
+function createSnackbar(message, delay, shouldResolve) {
 return new Promise((res, rej) => {
     setTimeout(() => {
-        shouldResolve ? resolve(delay) : reject(delay);
+        if (shouldResolve) {
+            res(message);
+        }else {
+            rej(message);
+        }
     }, delay);
     });
-});
 }

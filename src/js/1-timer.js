@@ -25,7 +25,6 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
-    flatpickr(input, options);
     if (selectedDates[0] <= new Date()) {
       startBtn.disabled = true;
       iziToast.error({
@@ -38,6 +37,7 @@ const options = {
     console.log(selectedDates[0]);
   },
   };
+  flatpickr(input, options);
 startBtn.addEventListener('click', () => {
   startBtn.disabled = true;
   input.disabled = true;
