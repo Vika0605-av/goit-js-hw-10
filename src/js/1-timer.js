@@ -7,7 +7,7 @@ import "flatpickr/dist/flatpickr.min.css";
 import iziToast from "izitoast";
 // Додатковий імпорт стилів
 import "izitoast/dist/css/iziToast.min.css";
-
+const  input = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('button[data-start]');
 const days = document.querySelector('span[data-days]');
 const hours = document.querySelector('span[data-hours]');
@@ -23,6 +23,7 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
+    flatpickr(input, options);
     if (selectedDates[0] < new Date()) {
       startBtn.disabled = true;
       iziToast.error({
@@ -37,7 +38,8 @@ const options = {
   };
 startBtn.addEventListener('click', () => {
   startBtn.disabled = true;
-  Input.disabled = true;
+  input.disabled = true;
+  input.disabled = false;
     intervalId = setInterval (() => {
         const futureTime = new Date();
         const diff = userSelectedDate - futureTime;
@@ -46,10 +48,10 @@ startBtn.addEventListener('click', () => {
             return;
         }
         const time = convertMs(diff);
-        days.textContent = time.days;
-        hours.textContent = time.hours;
-        minutes.textContent = time.minutes;
-        seconds.textContent = time.seconds;
+        days.textContent = addLeadingZero(time.days);
+        hours.textContent = addLeadingZero(time.hours);
+        minutes.textContent = addLeadingZero(time.minutes);
+        seconds.textContent = addLeadingZero(time.seconds);
       }, 1000);
     });
    function convertMs(ms) {
