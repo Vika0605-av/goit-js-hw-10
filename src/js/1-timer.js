@@ -7,15 +7,17 @@ import "flatpickr/dist/flatpickr.min.css";
 import iziToast from "izitoast";
 // Додатковий імпорт стилів
 import "izitoast/dist/css/iziToast.min.css";
-const  input = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('button[data-start]');
+const  input = document.querySelector('#datetime-picker');
 const days = document.querySelector('span[data-days]');
 const hours = document.querySelector('span[data-hours]');
 const minutes = document.querySelector('span[data-minutes]');
 const seconds = document.querySelector('span[data-seconds]');
+
 let userSelectedDate = null;
 let  intervalId;
 startBtn.disabled = true;
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -24,7 +26,7 @@ const options = {
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
     flatpickr(input, options);
-    if (selectedDates[0] < new Date()) {
+    if (selectedDates[0] <= new Date()) {
       startBtn.disabled = true;
       iziToast.error({
         message: 'Please choose a date in the future',
@@ -39,12 +41,12 @@ const options = {
 startBtn.addEventListener('click', () => {
   startBtn.disabled = true;
   input.disabled = true;
-  input.disabled = false;
     intervalId = setInterval (() => {
         const futureTime = new Date();
         const diff = userSelectedDate - futureTime;
         if (diff <= 0) {
             clearInterval(intervalId);
+            input.disabled = false;
             return;
         }
         const time = convertMs(diff);

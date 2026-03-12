@@ -7,7 +7,7 @@ const form = document.querySelector('.form');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const delay = Number(form.elements.delay.value);
-    const state = form.elements.status.value;
+    const state = form.elements.state.value;
     createPromise(delay, state === 'fulfilled')
         .then(message => {
             iziToast.success({
@@ -22,7 +22,7 @@ form.addEventListener('submit', (e) => {
     });
 function createSnackbar(delay, shouldResolve) {
 const promise = new Promise((res, rej) => {
-return new Promise((resolve, reject) => {
+return new Promise((res, rej) => {
     setTimeout(() => {
         shouldResolve ? resolve(delay) : reject(delay);
     }, delay);
