@@ -46,6 +46,10 @@ startBtn.addEventListener('click', () => {
         const diff = userSelectedDate - futureTime;
         if (diff <= 0) {
             clearInterval(intervalId);
+              days.textContent = '00';
+              hours.textContent = '00';
+              minutes.textContent = '00';
+              seconds.textContent = '00';
             input.disabled = false;
             return;
         }

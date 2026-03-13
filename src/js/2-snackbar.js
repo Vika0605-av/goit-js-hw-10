@@ -8,26 +8,30 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     const delay = Number(form.elements.delay.value);
     const state = form.elements.state.value;
-    createSnackbar(delay, state === 'fulfilled')
+    const shouldResolve = state === 'fulfilled';
+     createSnackbar(delay, shouldResolve)
         .then(message => {
             iziToast.success({
-                message: `✅ Fulfilled promise in ${delay}ms`
+                messag: message,
+                position: 'topRight',
             });
         })
-        .catch(delay => {
-            iziToast.error({
-                message: `❌ Rejected promise in ${delay}ms`
+        .catch(message => {
+            iziToast.success({
+                messag: message,
+                position: 'topRight',
             });
         });
+        form.res();
     });
-function createSnackbar(message, delay, shouldResolve) {
-return new Promise((res, rej) => {
-    setTimeout(() => {
-        if (shouldResolve) {
-            res(message);
-        }else {
-            rej(message);
-        }
-    }, delay);
-    });
-}
+    function createSnackbar(delay, shouldResolve) {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                if (shouldResolve) {
+                    res (`✅ Fulfilled promise in ${delay}ms`);
+                } else {
+                    rej (`❌ Rejected promise in ${delay}ms`)
+                }
+            }, delay);
+        });
+    }
