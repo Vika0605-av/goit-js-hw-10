@@ -10,16 +10,14 @@ form.addEventListener('submit', (e) => {
     const state = form.elements.state.value;
     const shouldResolve = state === 'fulfilled';
      createSnackbar(delay, shouldResolve)
-        .then(message => {
+        .then(delay => {
             iziToast.success({
-                message: message,
-                position: 'topRight',
+                message: `✅ Fulfilled promise in ${delay}ms`,
             });
         })
-        .catch(message => {
+        .catch(delay => {
             iziToast.error({
-                message: message,
-                position: 'topRight',
+                message: `❌ Rejected promise in ${delay}ms`,
             });
         });
         form.reset();
