@@ -12,25 +12,25 @@ form.addEventListener('submit', (e) => {
      createSnackbar(delay, shouldResolve)
         .then(message => {
             iziToast.success({
-                messag: message,
+                message: message,
                 position: 'topRight',
             });
         })
         .catch(message => {
-            iziToast.success({
-                messag: message,
+            iziToast.error({
+                message: message,
                 position: 'topRight',
             });
         });
-        form.res();
+        form.reset();
     });
     function createSnackbar(delay, shouldResolve) {
         return new Promise((res, rej) => {
             setTimeout(() => {
                 if (shouldResolve) {
-                    res (`✅ Fulfilled promise in ${delay}ms`);
+                    res (delay);
                 } else {
-                    rej (`❌ Rejected promise in ${delay}ms`)
+                    rej (delay)
                 }
             }, delay);
         });
